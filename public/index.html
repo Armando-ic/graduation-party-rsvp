@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graduation Celebration — RSVP</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Hero -->
+  <div class="hero">
+    <p class="tag">You're Invited</p>
+    <h1>Graduation Celebration!</h1>
+    <div class="divider"></div>
+    <p class="subtitle">George Mason University — Class of 2026</p>
+  </div>
+
+  <!-- Event Details -->
+  <div class="event-details">
+    <div>
+      <p class="detail-label">Date</p>
+      <p class="detail-value">May 14, 2026</p>
+    </div>
+    <div>
+      <p class="detail-label">Time</p>
+      <p class="detail-value">5:00 PM</p>
+    </div>
+    <div>
+      <p class="detail-label">Location</p>
+      <p class="detail-value">TBD</p>
+    </div>
+  </div>
+
+  <!-- RSVP Form -->
+  <div id="rsvp-form" class="form-container">
+    <h2 style="text-align:center;margin-bottom:24px;">Will you be joining us?</h2>
+
+    <div class="form-group">
+      <label for="guest-name">Your Name *</label>
+      <input type="text" id="guest-name" class="form-input" placeholder="Enter your full name" required>
+    </div>
+
+    <div class="form-group">
+      <label>Your Response *</label>
+      <div class="response-buttons">
+        <button type="button" class="response-btn" data-status="coming">Coming!</button>
+        <button type="button" class="response-btn" data-status="maybe">Maybe</button>
+        <button type="button" class="response-btn" data-status="not_coming">Can't Make It</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Bringing anyone?</label>
+      <div class="stepper">
+        <button type="button" class="stepper-btn minus" id="stepper-minus" disabled>−</button>
+        <span class="stepper-count" id="stepper-count">0</span>
+        <button type="button" class="stepper-btn plus" id="stepper-plus">+</button>
+      </div>
+      <div id="plus-one-names" class="plus-one-names hidden">
+        <p class="section-label">Guest Names</p>
+        <div id="plus-one-fields"></div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="guest-message">Leave a message (optional)</label>
+      <textarea id="guest-message" class="form-input" placeholder="Congrats, well wishes, etc."></textarea>
+    </div>
+
+    <button type="button" id="submit-rsvp" class="btn-submit" disabled>Submit RSVP</button>
+  </div>
+
+  <!-- Success Message -->
+  <div id="rsvp-success" class="success-message hidden">
+    <h2 id="success-heading">Thank you!</h2>
+    <p id="success-text"></p>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">George Mason University — Class of 2026</div>
+
+  <script type="module" src="js/rsvp.js"></script>
+</body>
+</html>
