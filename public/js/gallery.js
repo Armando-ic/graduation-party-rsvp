@@ -106,14 +106,25 @@ document.addEventListener("keydown", (e) => {
 });
 
 // --- Download All ---
-downloadAllBtn.addEventListener("click", () => {
-  allPhotos.forEach((photo) => {
-    const a = document.createElement("a");
-    a.href = photo.downloadURL;
-    a.download = photo.storagePath.split("/").pop();
-    a.target = "_blank";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  });
+downloadAllBtn.addEventListener("click", async () => {
+  downloadAllBtn.disabled = true;
+  downloadAllBtn.textContent = "Downloading...";
+  for (const photo of allPhotos) {
+    try {
+      const response = await fetch(photo.downloadURL);
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = photo.storagePath.split("/").pop();
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Download failed for", photo.storagePath, err);
+    }
+  }
+  downloadAllBtn.disabled = false;
+  downloadAllBtn.textContent = "Download All Photos";
 });

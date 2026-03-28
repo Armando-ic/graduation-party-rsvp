@@ -34,6 +34,8 @@ responseButtons.forEach((btn) => {
 
 // --- Plus-One Stepper ---
 function renderPlusOneFields() {
+  const existingValues = Array.from(plusOneFields.querySelectorAll("input"))
+    .map((input) => input.value);
   plusOneFields.textContent = "";
   for (let i = 0; i < plusOneCount; i++) {
     const input = document.createElement("input");
@@ -42,6 +44,9 @@ function renderPlusOneFields() {
     input.placeholder = `Guest ${i + 1} name`;
     input.required = true;
     input.dataset.index = i;
+    if (i < existingValues.length) {
+      input.value = existingValues[i];
+    }
     plusOneFields.appendChild(input);
   }
   plusOneNamesDiv.classList.toggle("hidden", plusOneCount === 0);

@@ -3,13 +3,25 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     match /rsvps/{rsvpId} {
-      allow create: if true;
+      allow create: if request.resource.data.keys().hasAll(['name', 'status', 'plusOnes', 'message', 'createdAt'])
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0
+        && request.resource.data.name.size() < 200
+        && request.resource.data.status in ['coming', 'maybe', 'not_coming']
+        && request.resource.data.plusOnes is list
+        && request.resource.data.plusOnes.size() <= 10
+        && request.resource.data.message is string
+        && request.resource.data.message.size() < 2000;
       allow read, delete: if request.auth != null;
       allow update: if false;
     }
 
     match /photos/{photoId} {
-      allow create: if true;
+      allow create: if request.resource.data.keys().hasAll(['uploaderName', 'storagePath', 'downloadURL', 'uploadedAt'])
+        && request.resource.data.uploaderName is string
+        && request.resource.data.uploaderName.size() < 200
+        && request.resource.data.storagePath is string
+        && request.resource.data.downloadURL is string;
       allow read: if true;
       allow delete: if request.auth != null;
       allow update: if false;

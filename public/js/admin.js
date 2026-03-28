@@ -25,7 +25,10 @@ let allRsvps = [];
 let tableFilter = "all";
 
 // --- Wait for auth, then start listeners ---
+let listenerRegistered = false;
 onReady(() => {
+  if (listenerRegistered) return;
+  listenerRegistered = true;
   const rsvpQuery = query(collection(db, "rsvps"), orderBy("createdAt", "desc"));
 
   onSnapshot(rsvpQuery, (snapshot) => {
