@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Gallery — Graduation Celebration</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Hero -->
+  <div class="hero">
+    <p class="tag">Graduation Party 2026</p>
+    <h1>Photo Gallery</h1>
+    <div class="divider"></div>
+    <p class="subtitle" id="photo-total">Loading photos...</p>
+  </div>
+
+  <!-- Filters -->
+  <div id="filter-chips" class="filter-chips"></div>
+
+  <!-- Gallery Grid -->
+  <div id="gallery-grid" class="gallery-grid"></div>
+
+  <!-- Empty state -->
+  <div id="empty-state" class="success-message hidden">
+    <h2>No photos yet</h2>
+    <p>Photos uploaded at the event will appear here!</p>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox hidden">
+    <span class="close" id="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="Full size photo">
+    <div class="info" id="lightbox-info"></div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <button type="button" id="download-all-btn" class="btn-action primary" style="margin-bottom:12px;">Download All Photos</button>
+    <p>George Mason University — Class of 2026</p>
+  </div>
+
+  <script type="module" src="js/gallery.js"></script>
+</body>
+</html>
