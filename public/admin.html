@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Graduation Party</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Auth Screen -->
+  <div id="auth-container">
+    <div class="auth-container">
+      <h2>Admin Sign In</h2>
+      <div id="auth-error" class="auth-error"></div>
+      <div class="form-group">
+        <label for="auth-email">Email</label>
+        <input type="email" id="auth-email" class="form-input" placeholder="admin@example.com">
+      </div>
+      <div class="form-group">
+        <label for="auth-password">Password</label>
+        <input type="password" id="auth-password" class="form-input" placeholder="Password">
+      </div>
+      <button type="button" id="sign-in-btn" class="btn-submit">Sign In</button>
+    </div>
+  </div>
+
+  <!-- Dashboard (hidden until authenticated) -->
+  <div id="dashboard-container" class="hidden">
+
+    <!-- Admin Nav -->
+    <div class="admin-nav">
+      <span class="brand">Grad Party Admin</span>
+      <div class="user-info">
+        <span class="email" id="admin-email"></span>
+        <button type="button" class="btn-signout" id="sign-out-btn">Sign Out</button>
+      </div>
+    </div>
+
+    <div style="padding: 24px;">
+
+      <!-- Stat Cards -->
+      <div class="stat-cards">
+        <div class="stat-card">
+          <p class="stat-label">Total Responses</p>
+          <p class="stat-value" id="stat-total">0</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Coming</p>
+          <p class="stat-value green" id="stat-coming">0</p>
+          <p class="stat-sub" id="stat-coming-guests"></p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Maybe</p>
+          <p class="stat-value gold" id="stat-maybe">0</p>
+          <p class="stat-sub" id="stat-maybe-guests"></p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Can't Make It</p>
+          <p class="stat-value red" id="stat-declined">0</p>
+        </div>
+      </div>
+
+      <!-- Headcount Banner -->
+      <div class="headcount-banner">
+        <div>
+          <p class="label">Estimated Total Headcount</p>
+          <p class="sublabel">Coming + their plus-ones</p>
+        </div>
+        <p class="count" id="headcount">0</p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button type="button" class="btn-action primary" id="export-csv-btn">Export CSV</button>
+        <button type="button" class="btn-action secondary" id="generate-qr-btn">Generate QR Code</button>
+        <a href="gallery.html" class="btn-action ghost" target="_blank">View Photo Gallery</a>
+      </div>
+
+      <!-- QR Modal -->
+      <div id="qr-modal" class="qr-modal hidden">
+        <div class="qr-content">
+          <h3>Photo Upload QR Code</h3>
+          <div id="qr-code"></div>
+          <p>Print this or display it at the party. Guests scan to upload photos.</p>
+          <button type="button" class="btn-submit" style="margin-top:16px;" id="qr-close-btn">Close</button>
+        </div>
+      </div>
+
+      <!-- Response Table -->
+      <div class="rsvp-table-container">
+        <div class="table-header">
+          <h3>All Responses</h3>
+          <div id="table-filters" class="filter-chips" style="padding:0;"></div>
+        </div>
+        <table class="rsvp-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Status</th>
+              <th>Plus-Ones</th>
+              <th>Message</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="rsvp-table-body"></tbody>
+        </table>
+      </div>
+
+      <!-- Live indicator -->
+      <div class="live-indicator">
+        <span class="live-dot"></span>
+        Live — updates automatically when new RSVPs come in
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+  <script type="module" src="js/auth.js"></script>
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>
