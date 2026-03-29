@@ -43,35 +43,7 @@
         <p class="detail-value"><a href="https://www.google.com/maps/search/?api=1&query=16856+Francis+West+Ln+Dumfries+VA+22026" target="_blank" rel="noopener" style="color:var(--gmu-green);text-decoration:underline;">16856 Francis West Ln, Dumfries, VA</a></p>
       </div>
     </div>
-    <script>
-      (function() {
-        var ics = [
-          "BEGIN:VCALENDAR",
-          "VERSION:2.0",
-          "BEGIN:VEVENT",
-          "DTSTART:20260516T190000Z",
-          "DTEND:20260516T230000Z",
-          "SUMMARY:Graduation Celebration - George Mason University",
-          "LOCATION:16856 Francis West Ln\\, Dumfries\\, VA 22026",
-          "DESCRIPTION:Graduation party for GMU Class of 2026!",
-          "END:VEVENT",
-          "END:VCALENDAR"
-        ].join("\r\n");
-        function download() {
-          var blob = new Blob([ics], { type: "text/calendar" });
-          var url = URL.createObjectURL(blob);
-          var a = document.createElement("a");
-          a.href = url;
-          a.download = "graduation-party.ics";
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-        }
-        document.getElementById("add-to-calendar").addEventListener("click", function(e) { e.preventDefault(); download(); });
-        document.querySelector(".calendar-link").addEventListener("click", function(e) { e.preventDefault(); download(); });
-      })();
-    </script>
+    <script src="js/calendar.js" defer></script>
 
     <!-- RSVP Form -->
     <div id="rsvp-form" class="form-container">
