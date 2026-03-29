@@ -52,15 +52,13 @@
     </div>
 
     <div class="form-group">
-      <label>Bringing anyone?</label>
-      <div class="stepper">
-        <button type="button" class="stepper-btn minus" id="stepper-minus" disabled>−</button>
-        <span class="stepper-count" id="stepper-count">0</span>
-        <button type="button" class="stepper-btn plus" id="stepper-plus">+</button>
-      </div>
-      <div id="plus-one-names" class="plus-one-names hidden">
-        <p class="section-label">Guest Names</p>
-        <div id="plus-one-fields"></div>
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+        <input type="checkbox" id="plus-one-check" style="width:18px;height:18px;accent-color:var(--gmu-green);">
+        Bringing a plus-one? (limit 1)
+      </label>
+      <div id="plus-one-names" class="plus-one-names hidden" style="margin-top:10px;">
+        <p class="section-label">Guest Name</p>
+        <input type="text" id="plus-one-name" class="form-input" placeholder="Your guest's name" required>
       </div>
     </div>
 

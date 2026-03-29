@@ -3,8 +3,6 @@ import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/fir
 
 // --- State ---
 let selectedStatus = null;
-let plusOneCount = 0;
-const MAX_PLUS_ONES = 10;
 
 // --- DOM refs ---
 const form = document.getElementById("rsvp-form");
@@ -13,11 +11,9 @@ const nameInput = document.getElementById("guest-name");
 const messageInput = document.getElementById("guest-message");
 const submitBtn = document.getElementById("submit-rsvp");
 const responseButtons = document.querySelectorAll(".response-btn");
-const stepperMinus = document.getElementById("stepper-minus");
-const stepperPlus = document.getElementById("stepper-plus");
-const stepperCount = document.getElementById("stepper-count");
+const plusOneCheck = document.getElementById("plus-one-check");
 const plusOneNamesDiv = document.getElementById("plus-one-names");
-const plusOneFields = document.getElementById("plus-one-fields");
+const plusOneNameInput = document.getElementById("plus-one-name");
 
 // --- Response Button Selection ---
 responseButtons.forEach((btn) => {
@@ -32,40 +28,11 @@ responseButtons.forEach((btn) => {
   });
 });
 
-// --- Plus-One Stepper ---
-function renderPlusOneFields() {
-  const existingValues = Array.from(plusOneFields.querySelectorAll("input"))
-    .map((input) => input.value);
-  plusOneFields.textContent = "";
-  for (let i = 0; i < plusOneCount; i++) {
-    const input = document.createElement("input");
-    input.type = "text";
-    input.className = "form-input";
-    input.placeholder = `Guest ${i + 1} name`;
-    input.required = true;
-    input.dataset.index = i;
-    if (i < existingValues.length) {
-      input.value = existingValues[i];
-    }
-    plusOneFields.appendChild(input);
-  }
-  plusOneNamesDiv.classList.toggle("hidden", plusOneCount === 0);
-  stepperMinus.disabled = plusOneCount === 0;
-  stepperPlus.disabled = plusOneCount >= MAX_PLUS_ONES;
-  stepperCount.textContent = plusOneCount;
-}
-
-stepperPlus.addEventListener("click", () => {
-  if (plusOneCount < MAX_PLUS_ONES) {
-    plusOneCount++;
-    renderPlusOneFields();
-  }
-});
-
-stepperMinus.addEventListener("click", () => {
-  if (plusOneCount > 0) {
-    plusOneCount--;
-    renderPlusOneFields();
+// --- Plus-One Checkbox ---
+plusOneCheck.addEventListener("change", () => {
+  plusOneNamesDiv.classList.toggle("hidden", !plusOneCheck.checked);
+  if (!plusOneCheck.checked) {
+    plusOneNameInput.value = "";
   }
 });
 
@@ -82,17 +49,16 @@ nameInput.addEventListener("input", updateSubmitState);
 submitBtn.addEventListener("click", async () => {
   if (submitBtn.disabled) return;
 
-  // Collect plus-one names
-  const plusOneInputs = plusOneFields.querySelectorAll("input");
+  // Collect plus-one name
   const plusOnes = [];
-  for (const input of plusOneInputs) {
-    const name = input.value.trim();
-    if (!name) {
-      input.focus();
-      input.style.borderColor = "var(--red)";
-      return; // Block submit if a plus-one name is empty
+  if (plusOneCheck.checked) {
+    const guestName = plusOneNameInput.value.trim();
+    if (!guestName) {
+      plusOneNameInput.focus();
+      plusOneNameInput.style.borderColor = "var(--red)";
+      return;
     }
-    plusOnes.push(name);
+    plusOnes.push(guestName);
   }
 
   // Disable button, show spinner
@@ -119,16 +85,16 @@ submitBtn.addEventListener("click", async () => {
 
     const successHeading = document.getElementById("success-heading");
     const successText = document.getElementById("success-text");
-    const guestName = nameInput.value.trim();
+    const name = nameInput.value.trim();
 
     if (selectedStatus === "coming") {
-      successHeading.textContent = `Thank you, ${guestName}!`;
+      successHeading.textContent = `Thank you, ${name}!`;
       successText.textContent = "We can't wait to see you there!";
     } else if (selectedStatus === "maybe") {
-      successHeading.textContent = `Thanks, ${guestName}!`;
+      successHeading.textContent = `Thanks, ${name}!`;
       successText.textContent = "We hope you can make it! We'll save a spot for you.";
     } else {
-      successHeading.textContent = `We'll miss you, ${guestName}!`;
+      successHeading.textContent = `We'll miss you, ${name}!`;
       successText.textContent = "Thanks for letting us know. We appreciate it!";
     }
   } catch (err) {

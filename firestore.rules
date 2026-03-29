@@ -9,7 +9,7 @@ service cloud.firestore {
         && request.resource.data.name.size() < 200
         && request.resource.data.status in ['coming', 'maybe', 'not_coming']
         && request.resource.data.plusOnes is list
-        && request.resource.data.plusOnes.size() <= 10
+        && request.resource.data.plusOnes.size() <= 1
         && request.resource.data.message is string
         && request.resource.data.message.size() < 2000;
       allow read, delete: if request.auth != null;
