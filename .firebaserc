@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "YOUR_PROJECT_ID"
-  }
+    "default": "gmu-graduation-party-rsvp"
+  },
+  "targets": {},
+  "etags": {}
 }

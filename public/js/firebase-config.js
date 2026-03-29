@@ -4,12 +4,12 @@ import { getStorage } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-s
 import { getAuth } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "PASTE_YOUR_API_KEY",
-  authDomain: "PASTE_YOUR_AUTH_DOMAIN",
-  projectId: "PASTE_YOUR_PROJECT_ID",
-  storageBucket: "PASTE_YOUR_STORAGE_BUCKET",
-  messagingSenderId: "PASTE_YOUR_SENDER_ID",
-  appId: "PASTE_YOUR_APP_ID"
+  apiKey: "AIzaSyC1ap8aCgx76_x_qeyxaki2uv7gboZPKPk",
+  authDomain: "gmu-graduation-party-rsvp.firebaseapp.com",
+  projectId: "gmu-graduation-party-rsvp",
+  storageBucket: "gmu-graduation-party-rsvp.firebasestorage.app",
+  messagingSenderId: "963499010315",
+  appId: "1:963499010315:web:53b96097c2d6b279cdda0e"
 };
 
 const app = initializeApp(firebaseConfig);
