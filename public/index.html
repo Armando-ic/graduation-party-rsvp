@@ -3,82 +3,183 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Graduation Celebration — RSVP</title>
+  <meta name="robots" content="noindex, nofollow">
+  <title>Graduation Celebration — George Mason University</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- Hero -->
-  <div class="hero">
-    <p class="tag">You're Invited</p>
-    <h1>Graduation Celebration!</h1>
-    <div class="divider"></div>
-    <p class="subtitle">George Mason University — Class of 2026</p>
-  </div>
+  <!-- Tab Navigation -->
+  <nav class="tab-bar">
+    <button class="tab-btn active" data-tab="rsvp">RSVP</button>
+    <button class="tab-btn" data-tab="upload">Upload Photos</button>
+    <button class="tab-btn" data-tab="gallery">Gallery</button>
+  </nav>
 
-  <!-- Event Details -->
-  <div class="event-details">
-    <div>
-      <p class="detail-label">Date</p>
-      <p class="detail-value">May 16, 2026</p>
-    </div>
-    <div>
-      <p class="detail-label">Time</p>
-      <p class="detail-value">3:00 PM</p>
-    </div>
-    <div>
-      <p class="detail-label">Location</p>
-      <p class="detail-value">16856 Francis West Ln, Dumfries, VA</p>
-    </div>
-  </div>
+  <!-- ==================== RSVP TAB ==================== -->
+  <div id="tab-rsvp" class="tab-content active">
 
-  <!-- RSVP Form -->
-  <div id="rsvp-form" class="form-container">
-    <h2 style="text-align:center;margin-bottom:8px;">Will you be joining us?</h2>
-    <p style="text-align:center;color:var(--gray-500);font-size:14px;margin-bottom:24px;line-height:1.5;">Please RSVP so we can plan accordingly — your response helps us prepare the right amount of food, drinks, tables, and chairs for everyone!</p>
-
-    <div class="form-group">
-      <label for="guest-name">Your Name *</label>
-      <input type="text" id="guest-name" class="form-input" placeholder="Enter your full name" maxlength="199" required>
+    <!-- Hero -->
+    <div class="hero">
+      <p class="tag">You're Invited</p>
+      <h1>Graduation Celebration!</h1>
+      <div class="divider"></div>
+      <p class="subtitle">George Mason University — Class of 2026</p>
     </div>
 
-    <div class="form-group">
-      <label>Your Response *</label>
-      <div class="response-buttons">
-        <button type="button" class="response-btn" data-status="coming">Coming!</button>
-        <button type="button" class="response-btn" data-status="maybe">Maybe</button>
-        <button type="button" class="response-btn" data-status="not_coming">Can't Make It</button>
+    <!-- Event Details -->
+    <div class="event-details">
+      <div>
+        <p class="detail-label">Date</p>
+        <p class="detail-value">May 16, 2026</p>
+      </div>
+      <div>
+        <p class="detail-label">Time</p>
+        <p class="detail-value">3:00 PM</p>
+      </div>
+      <div>
+        <p class="detail-label">Location</p>
+        <p class="detail-value">16856 Francis West Ln, Dumfries, VA</p>
       </div>
     </div>
 
-    <div class="form-group">
-      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
-        <input type="checkbox" id="plus-one-check" style="width:18px;height:18px;accent-color:var(--gmu-green);">
-        Bringing a plus-one? (limit 1)
-      </label>
-      <div id="plus-one-names" class="plus-one-names hidden" style="margin-top:10px;">
-        <p class="section-label">Guest Name</p>
-        <input type="text" id="plus-one-name" class="form-input" placeholder="Your guest's name" maxlength="199" required>
+    <!-- RSVP Form -->
+    <div id="rsvp-form" class="form-container">
+      <h2 style="text-align:center;margin-bottom:8px;">Will you be joining us?</h2>
+      <p style="text-align:center;color:var(--gray-500);font-size:14px;margin-bottom:24px;line-height:1.5;">Please RSVP so we can plan accordingly — your response helps us prepare the right amount of food, drinks, tables, and chairs for everyone!</p>
+
+      <div class="form-group">
+        <label for="guest-name">Your Name *</label>
+        <input type="text" id="guest-name" class="form-input" placeholder="Enter your full name" maxlength="199" required>
+      </div>
+
+      <div class="form-group">
+        <label>Your Response *</label>
+        <div class="response-buttons">
+          <button type="button" class="response-btn" data-status="coming">Coming!</button>
+          <button type="button" class="response-btn" data-status="maybe">Maybe</button>
+          <button type="button" class="response-btn" data-status="not_coming">Can't Make It</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+          <input type="checkbox" id="plus-one-check" style="width:18px;height:18px;accent-color:var(--gmu-green);">
+          Bringing a plus-one? (limit 1)
+        </label>
+        <div id="plus-one-names" class="plus-one-names hidden" style="margin-top:10px;">
+          <p class="section-label">Guest Name</p>
+          <input type="text" id="plus-one-name" class="form-input" placeholder="Your guest's name" maxlength="199" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="guest-message">Leave a message (optional)</label>
+        <textarea id="guest-message" class="form-input" placeholder="Congrats, well wishes, etc." maxlength="1999"></textarea>
+      </div>
+
+      <button type="button" id="submit-rsvp" class="btn-submit" disabled>Submit RSVP</button>
+    </div>
+
+    <!-- Success Message -->
+    <div id="rsvp-success" class="success-message hidden">
+      <h2 id="success-heading">Thank you!</h2>
+      <p id="success-text"></p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">George Mason University — Class of 2026</div>
+  </div>
+
+  <!-- ==================== UPLOAD TAB ==================== -->
+  <div id="tab-upload" class="tab-content">
+
+    <!-- Hero -->
+    <div class="hero">
+      <p class="tag">Graduation Party 2026</p>
+      <h1>Share Your Photos!</h1>
+      <div class="divider"></div>
+      <p class="subtitle">Upload pics from the celebration</p>
+    </div>
+
+    <!-- Upload Form -->
+    <div id="upload-form" class="form-container">
+
+      <div class="form-group">
+        <label for="uploader-name">Your Name (optional)</label>
+        <input type="text" id="uploader-name" class="form-input" placeholder="So we know who took these!">
+      </div>
+
+      <div class="form-group">
+        <div class="upload-area" id="upload-area">
+          <div class="icon">📸</div>
+          <p class="label">Tap to choose photos</p>
+          <p class="hint">or take a new one with your camera</p>
+        </div>
+        <input type="file" id="file-input" accept="image/*" capture="environment" multiple hidden>
+      </div>
+
+      <div id="thumbnails-container" class="form-group hidden">
+        <label id="photo-count-label">Selected (0 photos)</label>
+        <div id="thumbnails" class="thumbnails"></div>
+      </div>
+
+      <button type="button" id="upload-btn" class="btn-submit" disabled>Select photos to upload</button>
+
+      <div id="upload-progress" class="upload-progress hidden">
+        <span class="spinner"></span>
+        <span id="progress-text">Uploading...</span>
       </div>
     </div>
 
-    <div class="form-group">
-      <label for="guest-message">Leave a message (optional)</label>
-      <textarea id="guest-message" class="form-input" placeholder="Congrats, well wishes, etc." maxlength="1999"></textarea>
+    <!-- Success -->
+    <div id="upload-success" class="success-message hidden">
+      <h2>Uploaded!</h2>
+      <p>Your photos have been added to the gallery.</p>
+      <button type="button" id="upload-more-btn" class="btn-submit" style="max-width:300px;margin:24px auto 0;">Add More Photos</button>
     </div>
 
-    <button type="button" id="submit-rsvp" class="btn-submit" disabled>Submit RSVP</button>
+    <!-- Footer -->
+    <div class="footer">George Mason University — Class of 2026</div>
   </div>
 
-  <!-- Success Message -->
-  <div id="rsvp-success" class="success-message hidden">
-    <h2 id="success-heading">Thank you!</h2>
-    <p id="success-text"></p>
+  <!-- ==================== GALLERY TAB ==================== -->
+  <div id="tab-gallery" class="tab-content">
+
+    <!-- Hero -->
+    <div class="hero">
+      <p class="tag">Graduation Party 2026</p>
+      <h1>Photo Gallery</h1>
+      <div class="divider"></div>
+      <p class="subtitle" id="photo-total">Loading photos...</p>
+    </div>
+
+    <!-- Filters -->
+    <div id="filter-chips" class="filter-chips"></div>
+
+    <!-- Gallery Grid -->
+    <div id="gallery-grid" class="gallery-grid"></div>
+
+    <!-- Empty state -->
+    <div id="empty-state" class="success-message hidden">
+      <h2>No photos yet</h2>
+      <p>Photos uploaded at the event will appear here!</p>
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox hidden">
+      <span class="close" id="lightbox-close">&times;</span>
+      <img id="lightbox-img" src="" alt="Full size photo">
+      <div class="info" id="lightbox-info"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <button type="button" id="download-all-btn" class="btn-action primary" style="margin-bottom:12px;">Download All Photos</button>
+      <p>George Mason University — Class of 2026</p>
+    </div>
   </div>
 
-  <!-- Footer -->
-  <div class="footer">George Mason University — Class of 2026</div>
-
-  <script type="module" src="js/rsvp.js?v=3"></script>
+  <script type="module" src="js/tabs.js"></script>
 </body>
 </html>

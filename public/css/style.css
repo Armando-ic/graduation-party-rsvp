@@ -8,6 +8,39 @@ body {
 }
 a { color: #006633; text-decoration: none; }
 
+/* === Tab Navigation === */
+.tab-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  background: var(--gmu-green);
+  border-bottom: 2px solid var(--gmu-green-dark);
+}
+.tab-btn {
+  flex: 1;
+  padding: 14px 8px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: rgba(255,255,255,0.7);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.tab-btn:hover { color: var(--white); }
+.tab-btn.active {
+  color: var(--gmu-gold);
+  border-bottom-color: var(--gmu-gold);
+}
+
+/* === Tab Content === */
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
 /* === GMU Colors === */
 :root {
   --gmu-green: #006633;

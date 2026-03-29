@@ -2,60 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Share Your Photos — Graduation Celebration</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta http-equiv="refresh" content="0;url=index.html#upload">
+  <title>Redirecting...</title>
 </head>
 <body>
-
-  <!-- Hero -->
-  <div class="hero">
-    <p class="tag">Graduation Party 2026</p>
-    <h1>Share Your Photos!</h1>
-    <div class="divider"></div>
-    <p class="subtitle">Upload pics from the celebration</p>
-  </div>
-
-  <!-- Upload Form -->
-  <div id="upload-form" class="form-container">
-
-    <div class="form-group">
-      <label for="uploader-name">Your Name (optional)</label>
-      <input type="text" id="uploader-name" class="form-input" placeholder="So we know who took these!">
-    </div>
-
-    <div class="form-group">
-      <div class="upload-area" id="upload-area">
-        <div class="icon">📸</div>
-        <p class="label">Tap to choose photos</p>
-        <p class="hint">or take a new one with your camera</p>
-      </div>
-      <input type="file" id="file-input" accept="image/*" capture="environment" multiple hidden>
-    </div>
-
-    <div id="thumbnails-container" class="form-group hidden">
-      <label id="photo-count-label">Selected (0 photos)</label>
-      <div id="thumbnails" class="thumbnails"></div>
-    </div>
-
-    <button type="button" id="upload-btn" class="btn-submit" disabled>Select photos to upload</button>
-
-    <div id="upload-progress" class="upload-progress hidden">
-      <span class="spinner"></span>
-      <span id="progress-text">Uploading...</span>
-    </div>
-  </div>
-
-  <!-- Success -->
-  <div id="upload-success" class="success-message hidden">
-    <h2>Uploaded!</h2>
-    <p>Your photos have been added to the gallery.</p>
-    <button type="button" id="upload-more-btn" class="btn-submit" style="max-width:300px;margin:24px auto 0;">Add More Photos</button>
-  </div>
-
-  <!-- Footer -->
-  <div class="footer">George Mason University — Class of 2026</div>
-
-  <script type="module" src="js/upload.js"></script>
+  <script>window.location.replace("index.html#upload");</script>
+  <p>Redirecting to <a href="index.html#upload">photo upload</a>...</p>
 </body>
 </html>
