@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   <title>Graduation Celebration — George Mason University</title>
-  <link rel="stylesheet" href="css/style.css?v=2">
+  <link rel="stylesheet" href="css/style.css?v=3">
 </head>
 <body>
 
@@ -14,6 +14,7 @@
     <button class="tab-btn active" data-tab="rsvp">RSVP</button>
     <button class="tab-btn" data-tab="upload">Upload Photos</button>
     <button class="tab-btn" data-tab="gallery">Gallery</button>
+    <button class="tab-btn memories-tab hidden" data-tab="memories" id="memories-tab-btn">Memories</button>
   </nav>
 
   <!-- ==================== RSVP TAB ==================== -->
@@ -87,8 +88,29 @@
       <p id="success-text"></p>
     </div>
 
+    <!-- Secret Code Entry -->
+    <div style="text-align:center;padding:24px 0 8px;">
+      <button type="button" class="secret-code-btn" id="secret-code-btn">🔒 Have a secret code?</button>
+    </div>
+
     <!-- Footer -->
     <div class="footer">George Mason University — Class of 2026</div>
+  </div>
+
+  <!-- Code Entry Modal -->
+  <div id="code-modal" class="code-modal hidden">
+    <div class="code-modal-content">
+      <h3>Enter Secret Code</h3>
+      <div class="code-inputs" id="code-inputs">
+        <input type="text" class="code-input" maxlength="1" autocomplete="off">
+        <input type="text" class="code-input" maxlength="1" autocomplete="off">
+        <input type="text" class="code-input" maxlength="1" autocomplete="off">
+        <input type="text" class="code-input" maxlength="1" autocomplete="off">
+      </div>
+      <div class="code-error" id="code-error"></div>
+      <button type="button" class="btn-submit" id="code-unlock-btn" style="max-width:200px;margin:0 auto;">Unlock</button>
+      <button type="button" id="code-close-btn" style="background:none;border:none;color:var(--gray-400);font-size:13px;margin-top:12px;cursor:pointer;font-family:inherit;">Cancel</button>
+    </div>
   </div>
 
   <!-- ==================== UPLOAD TAB ==================== -->
@@ -166,18 +188,39 @@
       <p>Photos uploaded at the event will appear here!</p>
     </div>
 
-    <!-- Lightbox -->
-    <div id="lightbox" class="lightbox hidden">
-      <span class="close" id="lightbox-close">&times;</span>
-      <img id="lightbox-img" src="" alt="Full size photo">
-      <div class="info" id="lightbox-info"></div>
-    </div>
-
     <!-- Footer -->
     <div class="footer">
       <button type="button" id="download-all-btn" class="btn-action primary" style="margin-bottom:12px;">Download All Photos</button>
       <p>George Mason University — Class of 2026</p>
     </div>
+  </div>
+
+  <!-- ==================== MEMORIES TAB (hidden until unlocked) ==================== -->
+  <div id="tab-memories" class="tab-content hidden">
+
+    <!-- Cotton Candy Hero -->
+    <div class="hero-memories">
+      <h1>Girl Queen Pussy Boss</h1>
+    </div>
+
+    <!-- Memories Grid -->
+    <div id="memories-grid" class="memories-grid"></div>
+
+    <!-- Empty state -->
+    <div id="memories-empty" class="memories-empty hidden">
+      <h2>Memories coming soon!</h2>
+      <p>Check back later for photos and videos.</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="memories-footer">Made with love</div>
+  </div>
+
+  <!-- Shared Lightbox (used by gallery and memories) -->
+  <div id="lightbox" class="lightbox hidden">
+    <span class="close" id="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="Full size photo">
+    <div class="info" id="lightbox-info"></div>
   </div>
 
   <script type="module" src="js/tabs.js"></script>

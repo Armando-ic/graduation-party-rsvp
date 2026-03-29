@@ -113,11 +113,29 @@
         Live — updates automatically when new RSVPs come in
       </div>
 
+      <!-- Manage Memories Section -->
+      <div style="margin-top:32px;">
+        <h3 style="margin-bottom:16px;">Manage Memories</h3>
+        <p style="font-size:13px;color:var(--gray-500);margin-bottom:16px;">Upload photos and videos for the secret Memories tab. These are visible only to friends who enter the code.</p>
+        <div class="action-buttons">
+          <button type="button" class="btn-action primary" id="upload-memories-btn">Upload Photos/Videos</button>
+          <input type="file" id="memories-file-input" accept="image/*,video/*" multiple hidden>
+        </div>
+        <div id="memories-upload-progress" class="upload-progress hidden" style="margin-top:12px;">
+          <span class="spinner"></span>
+          <span id="memories-progress-text">Uploading...</span>
+        </div>
+        <div id="memories-admin-grid" class="memories-admin-grid"></div>
+        <div id="memories-admin-empty" style="text-align:center;padding:24px;color:var(--gray-400);font-size:13px;">
+          No memories uploaded yet.
+        </div>
+      </div>
+
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <script type="module" src="js/auth.js?v=2"></script>
-  <script type="module" src="js/admin.js?v=2"></script>
+  <script type="module" src="js/admin.js?v=3"></script>
 </body>
 </html>

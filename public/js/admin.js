@@ -1,8 +1,9 @@
-import { db } from "./firebase-config.js";
+import { db, storage } from "./firebase-config.js";
 import { onReady } from "./auth.js";
 import {
-  collection, query, orderBy, onSnapshot, doc, deleteDoc,
+  collection, query, orderBy, onSnapshot, doc, deleteDoc, addDoc, serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+import { ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-storage.js";
 
 // --- DOM refs ---
 const statTotal = document.getElementById("stat-total");
@@ -173,4 +174,101 @@ generateQrBtn.addEventListener("click", () => {
 qrCloseBtn.addEventListener("click", () => qrModal.classList.add("hidden"));
 qrModal.addEventListener("click", (e) => {
   if (e.target === qrModal) qrModal.classList.add("hidden");
+});
+
+// --- Manage Memories ---
+const uploadMemoriesBtn = document.getElementById("upload-memories-btn");
+const memoriesFileInput = document.getElementById("memories-file-input");
+const memoriesUploadProgress = document.getElementById("memories-upload-progress");
+const memoriesProgressText = document.getElementById("memories-progress-text");
+const memoriesAdminGrid = document.getElementById("memories-admin-grid");
+const memoriesAdminEmpty = document.getElementById("memories-admin-empty");
+
+// Listen for memories
+const memoriesQuery = query(collection(db, "memories"), orderBy("uploadedAt", "desc"));
+onSnapshot(memoriesQuery, (snapshot) => {
+  const memories = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+  renderMemoriesAdmin(memories);
+});
+
+function renderMemoriesAdmin(memories) {
+  memoriesAdminGrid.textContent = "";
+  memoriesAdminEmpty.classList.toggle("hidden", memories.length > 0);
+
+  memories.forEach((memory) => {
+    const item = document.createElement("div");
+    item.className = "memories-admin-item";
+
+    if (memory.type === "video") {
+      const video = document.createElement("video");
+      video.src = memory.downloadURL;
+      video.preload = "metadata";
+      item.appendChild(video);
+    } else {
+      const img = document.createElement("img");
+      img.src = memory.downloadURL;
+      img.alt = "Memory";
+      item.appendChild(img);
+    }
+
+    const deleteBtn = document.createElement("div");
+    deleteBtn.className = "delete-overlay";
+    deleteBtn.textContent = "\u00d7";
+    deleteBtn.addEventListener("click", async () => {
+      if (confirm("Delete this memory?")) {
+        try {
+          await deleteObject(ref(storage, memory.storagePath));
+          await deleteDoc(doc(db, "memories", memory.id));
+        } catch (err) {
+          console.error("Delete memory failed:", err);
+          alert("Failed to delete. Please try again.");
+        }
+      }
+    });
+    item.appendChild(deleteBtn);
+
+    memoriesAdminGrid.appendChild(item);
+  });
+}
+
+// Upload memories
+uploadMemoriesBtn.addEventListener("click", () => memoriesFileInput.click());
+
+memoriesFileInput.addEventListener("change", async (e) => {
+  const files = Array.from(e.target.files);
+  if (files.length === 0) return;
+
+  memoriesFileInput.value = "";
+  uploadMemoriesBtn.classList.add("hidden");
+  memoriesUploadProgress.classList.remove("hidden");
+
+  try {
+    for (let i = 0; i < files.length; i++) {
+      memoriesProgressText.textContent = `Uploading... ${i + 1} of ${files.length}`;
+      const file = files[i];
+      const isVideo = file.type.startsWith("video/");
+      const ext = isVideo ? "mp4" : "jpg";
+      const fileId = `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+      const storagePath = `memories/${fileId}.${ext}`;
+      const storageRef = ref(storage, storagePath);
+
+      const snapshot = await uploadBytes(storageRef, file, {
+        contentType: file.type,
+      });
+      const downloadURL = await getDownloadURL(snapshot.ref);
+
+      await addDoc(collection(db, "memories"), {
+        storagePath: storagePath,
+        downloadURL: downloadURL,
+        type: isVideo ? "video" : "image",
+        uploadedAt: serverTimestamp(),
+      });
+    }
+  } catch (err) {
+    console.error("Memory upload error:", err);
+    alert("Upload failed. Please try again.");
+  }
+
+  memoriesUploadProgress.classList.add("hidden");
+  uploadMemoriesBtn.classList.remove("hidden");
 });

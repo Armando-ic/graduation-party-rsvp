@@ -26,6 +26,19 @@ service cloud.firestore {
       allow update: if false;
     }
 
+    match /memories/{memoryId} {
+      allow create: if isAdmin()
+        && request.resource.data.keys().hasOnly(['storagePath', 'downloadURL', 'type', 'uploadedAt'])
+        && request.resource.data.keys().hasAll(['storagePath', 'downloadURL', 'type', 'uploadedAt'])
+        && request.resource.data.storagePath is string
+        && request.resource.data.downloadURL is string
+        && request.resource.data.downloadURL.matches('https://firebasestorage\\.googleapis\\.com/.*')
+        && request.resource.data.type in ['image', 'video'];
+      allow read: if true;
+      allow delete: if isAdmin();
+      allow update: if false;
+    }
+
     match /photos/{photoId} {
       allow create: if request.resource.data.keys().hasOnly(['uploaderName', 'storagePath', 'downloadURL', 'uploadedAt'])
         && request.resource.data.keys().hasAll(['uploaderName', 'storagePath', 'downloadURL', 'uploadedAt'])

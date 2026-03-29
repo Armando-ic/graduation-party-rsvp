@@ -559,6 +559,181 @@ textarea.form-input { resize: vertical; min-height: 60px; }
 .qr-modal .qr-content canvas { margin: 16px auto; }
 .qr-modal .qr-content p { font-size: 13px; color: var(--gray-500); margin-top: 12px; }
 
+/* === Secret Code Entry === */
+.secret-code-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 2px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 10px 20px;
+  color: var(--gray-400);
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+.secret-code-btn:hover { border-color: var(--gray-400); }
+
+.code-modal {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000;
+}
+.code-modal.hidden { display: none; }
+.code-modal-content {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 32px;
+  text-align: center;
+  max-width: 320px;
+  width: 90%;
+}
+.code-modal-content h3 { color: var(--gray-800); margin-bottom: 16px; }
+.code-inputs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.code-input {
+  width: 48px; height: 56px;
+  border: 2px solid var(--gray-200);
+  border-radius: 8px;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: inherit;
+  color: var(--gray-800);
+  transition: border-color 0.2s;
+}
+.code-input:focus { outline: none; border-color: #FF9ECD; }
+.code-error {
+  color: var(--red);
+  font-size: 13px;
+  margin-bottom: 12px;
+  min-height: 20px;
+}
+.code-inputs.shake {
+  animation: shake 0.4s ease-in-out;
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+/* === Confetti === */
+.confetti-container {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+.confetti-piece {
+  position: absolute;
+  top: -20px;
+  width: 10px; height: 10px;
+  opacity: 0.9;
+  animation: confetti-fall linear forwards;
+}
+@keyframes confetti-fall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+/* === Cotton Candy Theme (Memories) === */
+.hero-memories {
+  background: linear-gradient(135deg, #FF9ECD 0%, #E8B4F8 50%, #B5E8F7 100%);
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+.hero-memories h1 {
+  font-size: 32px;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.tab-btn.memories-tab { color: rgba(255,255,255,0.7); }
+.tab-btn.memories-tab.active { color: #FF9ECD; border-bottom-color: #FF9ECD; }
+
+.memories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+  padding: 16px;
+}
+.memories-item {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  background: var(--gray-100);
+}
+.memories-item img, .memories-item video {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.2s;
+}
+.memories-item:hover img, .memories-item:hover video { transform: scale(1.05); }
+.memories-item .video-play {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px; height: 48px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 20px;
+  pointer-events: none;
+}
+.memories-empty {
+  text-align: center;
+  padding: 48px 24px;
+  color: #FF9ECD;
+}
+.memories-footer {
+  background: rgba(255,158,205,0.1);
+  padding: 16px;
+  text-align: center;
+  font-size: 13px;
+  color: #FF9ECD;
+}
+
+/* === Admin Memories Section === */
+.memories-admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+.memories-admin-item {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  background: var(--gray-100);
+}
+.memories-admin-item img, .memories-admin-item video {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.memories-admin-item .delete-overlay {
+  position: absolute; top: 4px; right: 4px;
+  width: 24px; height: 24px;
+  background: var(--red); border-radius: 50%;
+  color: white; font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; border: 2px solid white;
+}
+
 /* === Responsive === */
 @media (max-width: 768px) {
   .hero { padding: 36px 20px; }
@@ -566,6 +741,7 @@ textarea.form-input { resize: vertical; min-height: 60px; }
   .event-details { gap: 20px; }
   .stat-cards { grid-template-columns: repeat(2, 1fr); }
   .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .memories-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
   .rsvp-table { font-size: 12px; }
   .rsvp-table thead th, .rsvp-table tbody td { padding: 10px 12px; }
   .headcount-banner { flex-direction: column; text-align: center; gap: 8px; }
