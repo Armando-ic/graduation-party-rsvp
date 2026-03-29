@@ -39,7 +39,7 @@
 
     <div class="form-group">
       <label for="guest-name">Your Name *</label>
-      <input type="text" id="guest-name" class="form-input" placeholder="Enter your full name" required>
+      <input type="text" id="guest-name" class="form-input" placeholder="Enter your full name" maxlength="199" required>
     </div>
 
     <div class="form-group">
@@ -58,13 +58,13 @@
       </label>
       <div id="plus-one-names" class="plus-one-names hidden" style="margin-top:10px;">
         <p class="section-label">Guest Name</p>
-        <input type="text" id="plus-one-name" class="form-input" placeholder="Your guest's name" required>
+        <input type="text" id="plus-one-name" class="form-input" placeholder="Your guest's name" maxlength="199" required>
       </div>
     </div>
 
     <div class="form-group">
       <label for="guest-message">Leave a message (optional)</label>
-      <textarea id="guest-message" class="form-input" placeholder="Congrats, well wishes, etc."></textarea>
+      <textarea id="guest-message" class="form-input" placeholder="Congrats, well wishes, etc." maxlength="1999"></textarea>
     </div>
 
     <button type="button" id="submit-rsvp" class="btn-submit" disabled>Submit RSVP</button>
@@ -79,6 +79,6 @@
   <!-- Footer -->
   <div class="footer">George Mason University — Class of 2026</div>
 
-  <script type="module" src="js/rsvp.js?v=2"></script>
+  <script type="module" src="js/rsvp.js?v=3"></script>
 </body>
 </html>

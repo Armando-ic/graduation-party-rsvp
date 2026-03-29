@@ -120,7 +120,12 @@ function renderTable() {
     deleteBtn.textContent = "Delete";
     deleteBtn.addEventListener("click", async () => {
       if (confirm("Delete this RSVP?")) {
-        await deleteDoc(doc(db, "rsvps", rsvp.id));
+        try {
+          await deleteDoc(doc(db, "rsvps", rsvp.id));
+        } catch (err) {
+          console.error("Delete failed:", err);
+          alert("Failed to delete. Please try again.");
+        }
       }
     });
     deleteTd.appendChild(deleteBtn);

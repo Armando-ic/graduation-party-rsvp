@@ -30,6 +30,7 @@ fileInput.addEventListener("change", (e) => {
 });
 
 function renderThumbnails() {
+  thumbnailsDiv.querySelectorAll("img").forEach((img) => URL.revokeObjectURL(img.src));
   thumbnailsDiv.textContent = "";
 
   selectedFiles.forEach((file, index) => {
@@ -62,9 +63,11 @@ function renderThumbnails() {
 
 // --- Image Compression ---
 function compressImage(file) {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const img = new Image();
+    const objectUrl = URL.createObjectURL(file);
     img.onload = () => {
+      URL.revokeObjectURL(objectUrl);
       const canvas = document.createElement("canvas");
       const MAX_WIDTH = 1600;
       let width = img.width;
@@ -81,12 +84,16 @@ function compressImage(file) {
       ctx.drawImage(img, 0, 0, width, height);
 
       canvas.toBlob(
-        (blob) => resolve(blob),
+        (blob) => blob ? resolve(blob) : reject(new Error("Compression failed")),
         "image/jpeg",
         0.8
       );
     };
-    img.src = URL.createObjectURL(file);
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(new Error("Failed to load image"));
+    };
+    img.src = objectUrl;
   });
 }
 
