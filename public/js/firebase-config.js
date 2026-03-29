@@ -2,6 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebas
 import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 import { getStorage } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-storage.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app-check.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC1ap8aCgx76_x_qeyxaki2uv7gboZPKPk",
@@ -13,6 +14,13 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+
+// App Check — verifies requests come from the legitimate app
+initializeAppCheck(app, {
+  provider: new ReCaptchaEnterpriseProvider("6LeoA50sAAAAAI41H5abMfD9SrxuQctDeebnIVri"),
+  isTokenAutoRefreshEnabled: true
+});
+
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 export const auth = getAuth(app);
