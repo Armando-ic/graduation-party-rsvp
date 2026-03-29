@@ -67,12 +67,4 @@ export function initMemories() {
     });
   }
 
-  // Lightbox close handlers (reuse existing if already attached by gallery)
-  if (lightboxClose && !lightboxClose._memoriesHandler) {
-    lightboxClose._memoriesHandler = true;
-    lightboxClose.addEventListener("click", () => lightbox.classList.add("hidden"));
-    lightbox.addEventListener("click", (e) => {
-      if (e.target === lightbox) lightbox.classList.add("hidden");
-    });
-  }
 }

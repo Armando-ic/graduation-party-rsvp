@@ -2,16 +2,14 @@ import { initRsvp } from "./rsvp.js";
 import { initUpload } from "./upload.js";
 import { initGallery } from "./gallery.js";
 import { initMemories } from "./memories.js";
-import { initSecrets, isUnlocked, launchConfetti } from "./secrets.js";
+import { initSecrets, isUnlocked } from "./secrets.js";
 
-let tabs = document.querySelectorAll(".tab-btn");
 let sections = document.querySelectorAll(".tab-content");
 const initialized = { rsvp: false, upload: false, gallery: false, memories: false };
 const validTabs = ["rsvp", "upload", "gallery", "memories"];
 
 function activateTab(tabId) {
-  // Re-query in case memories tab was added dynamically
-  tabs = document.querySelectorAll(".tab-btn");
+  const tabs = document.querySelectorAll(".tab-btn");
   sections = document.querySelectorAll(".tab-content");
 
   tabs.forEach((t) => t.classList.toggle("active", t.dataset.tab === tabId));
@@ -31,16 +29,10 @@ function activateTab(tabId) {
     initMemories();
   }
 
-  // Brief confetti replay when switching to memories (after first time)
-  if (tabId === "memories" && initialized.memories) {
-    // Only replay if not the initial unlock (that already plays confetti)
-  }
-
   history.replaceState(null, "", `#${tabId}`);
 }
 
 function revealMemoriesTab() {
-  const tabBar = document.querySelector(".tab-bar");
   const memoriesBtn = document.getElementById("memories-tab-btn");
   const memoriesContent = document.getElementById("tab-memories");
 
@@ -50,12 +42,20 @@ function revealMemoriesTab() {
   }
 }
 
-// Tab click handlers
-tabs.forEach((tab) => {
-  tab.addEventListener("click", () => activateTab(tab.dataset.tab));
-});
+// Shared lightbox close handlers (used by gallery and memories)
+const lightbox = document.getElementById("lightbox");
+const lightboxClose = document.getElementById("lightbox-close");
+if (lightbox && lightboxClose) {
+  lightboxClose.addEventListener("click", () => lightbox.classList.add("hidden"));
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) lightbox.classList.add("hidden");
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") lightbox.classList.add("hidden");
+  });
+}
 
-// Also handle clicks on dynamically revealed memories tab
+// Single delegated click handler for all tab buttons (including dynamically revealed ones)
 document.querySelector(".tab-bar").addEventListener("click", (e) => {
   const btn = e.target.closest(".tab-btn");
   if (btn && btn.dataset.tab) activateTab(btn.dataset.tab);

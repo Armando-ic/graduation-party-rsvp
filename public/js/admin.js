@@ -38,6 +38,13 @@ onReady(() => {
     renderTableFilters();
     renderTable();
   });
+
+  // Memories listener (inside auth guard)
+  const memoriesQuery = query(collection(db, "memories"), orderBy("uploadedAt", "desc"));
+  onSnapshot(memoriesQuery, (snapshot) => {
+    const memories = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+    renderMemoriesAdmin(memories);
+  });
 });
 
 // --- Stats ---
@@ -183,13 +190,6 @@ const memoriesUploadProgress = document.getElementById("memories-upload-progress
 const memoriesProgressText = document.getElementById("memories-progress-text");
 const memoriesAdminGrid = document.getElementById("memories-admin-grid");
 const memoriesAdminEmpty = document.getElementById("memories-admin-empty");
-
-// Listen for memories
-const memoriesQuery = query(collection(db, "memories"), orderBy("uploadedAt", "desc"));
-onSnapshot(memoriesQuery, (snapshot) => {
-  const memories = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
-  renderMemoriesAdmin(memories);
-});
 
 function renderMemoriesAdmin(memories) {
   memoriesAdminGrid.textContent = "";

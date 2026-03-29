@@ -92,14 +92,6 @@ export function initGallery() {
     lightbox.classList.remove("hidden");
   }
 
-  lightboxClose.addEventListener("click", () => lightbox.classList.add("hidden"));
-  lightbox.addEventListener("click", (e) => {
-    if (e.target === lightbox) lightbox.classList.add("hidden");
-  });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") lightbox.classList.add("hidden");
-  });
-
   downloadAllBtn.addEventListener("click", async () => {
     downloadAllBtn.disabled = true;
     downloadAllBtn.textContent = "Downloading...";

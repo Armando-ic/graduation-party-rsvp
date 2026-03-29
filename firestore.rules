@@ -32,7 +32,8 @@ service cloud.firestore {
         && request.resource.data.keys().hasAll(['storagePath', 'downloadURL', 'type', 'uploadedAt'])
         && request.resource.data.storagePath is string
         && request.resource.data.downloadURL is string
-        && request.resource.data.downloadURL.matches('https://firebasestorage\\.googleapis\\.com/.*')
+        && (request.resource.data.downloadURL.matches('https://firebasestorage\\.googleapis\\.com/.*')
+            || request.resource.data.downloadURL.matches('https://.*\\.firebasestorage\\.app/.*'))
         && request.resource.data.type in ['image', 'video'];
       allow read: if true;
       allow delete: if isAdmin();
@@ -47,7 +48,8 @@ service cloud.firestore {
         && request.resource.data.storagePath is string
         && request.resource.data.storagePath.matches('photos/[a-zA-Z0-9_-]+\\.jpg')
         && request.resource.data.downloadURL is string
-        && request.resource.data.downloadURL.matches('https://firebasestorage\\.googleapis\\.com/.*');
+        && (request.resource.data.downloadURL.matches('https://firebasestorage\\.googleapis\\.com/.*')
+            || request.resource.data.downloadURL.matches('https://.*\\.firebasestorage\\.app/.*'));
       allow read: if true;
       allow delete: if isAdmin();
       allow update: if false;
